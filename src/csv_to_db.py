@@ -18,8 +18,14 @@ def read_csv(file_path):
         raise ValueError('[|]')
     
 
-def insert_into_db(data, db_path):
-    pass
+def insert_into_db(data, db_path=None):
+    if db_path == None or not data:
+        raise ValueError(".'.")
+    
+    db = TinyDB(db_path)
+    db.truncate()
+    db.insert_multiple(data)
+    
 
 def query_db(db_path, query_field, query_value):
     # Query the database
@@ -27,7 +33,7 @@ def query_db(db_path, query_field, query_value):
 
 if __name__ == "__main__":
     # Main execution logic
-    pass
+    
 
-data = read_csv('user_data.csv')
-print(data)
+    data = read_csv('user_data.csv')
+    insert_into_db(data, 'users.json')
