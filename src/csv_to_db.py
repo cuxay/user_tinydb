@@ -16,9 +16,14 @@ def read_csv(file_path):
     except FileNotFoundError:
         raise ValueError('[|]')
 
-def insert_into_db(data, db_path):
-    # Insert data into TinyDB
-    pass
+def insert_into_db(data, db_path=None):
+    if db_path == None or not data:
+        raise ValueError("ValueError")
+    
+    db = TinyDB(db_path)
+    for i in data:
+        db.insert(i)
+    return db.all()
 
 def query_db(db_path, query_field, query_value):
     # Query the database
