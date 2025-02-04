@@ -1,6 +1,6 @@
 import csv
 from tinydb import TinyDB, Query
-import json
+import argparse
 
 def read_csv(file_path):
     # Read and parse the CSV file
@@ -54,6 +54,32 @@ def query_db(db_path, query_field=None, query_value=None):
     return result
 
 
-if __name__ == "__main__":
-    # Main execution logic
+def main(csv_file, db_path):
+    """
+    csv_file va db_path parametrlarini qabul qiladi va CSV fayldagi ma'lumotlarni TinyDB bazasiga yuklaydi.
     
+    Ushbu funksiya buyruq satri argumentlaridan foydalanmaydi,
+    shuning uchun test muhitida yoki boshqa kontekstda to'g'ridan-to'g'ri parametrlar orqali chaqirilishi mumkin.
+    """
+    data = read_csv(csv_file)
+    if len(data) < 2:
+        print("CSV faylida test talabiga binoan kamida 2 ta yozuv bo'lishi kerak!")
+        return
+    insert_into_db(data, db_path)
+    print(f"Ma'lumotlar {db_path} bazasiga muvaffaqiyatli yuklandi.")
+
+def main():
+    parser = argparse.ArgumentParser(description="Convert CSV data into a TinyDB database.")
+    parser.add_argument('csv_file',help='csv file')
+    parser.add_argument('--db',help='json(Tinydb)')
+
+    args = parser.parse_args()
+
+    try:
+        data = read_csv(args.csv_file)
+        insert_into_db(data, args.db)
+    except Exception :
+        print("Error")
+
+if __name__ == "__main__":
+    main()
