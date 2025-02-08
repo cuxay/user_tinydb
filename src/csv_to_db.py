@@ -1,4 +1,5 @@
 import csv
+
 from tinydb import TinyDB, Query
 
 def read_csv(file_path):
