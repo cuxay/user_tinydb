@@ -55,12 +55,6 @@ def query_db(db_path, query_field=None, query_value=None):
 
 
 def main(csv_file, db_path):
-    """
-    csv_file va db_path parametrlarini qabul qiladi va CSV fayldagi ma'lumotlarni TinyDB bazasiga yuklaydi.
-    
-    Ushbu funksiya buyruq satri argumentlaridan foydalanmaydi,
-    shuning uchun test muhitida yoki boshqa kontekstda to'g'ridan-to'g'ri parametrlar orqali chaqirilishi mumkin.
-    """
     data = read_csv(csv_file)
     if len(data) < 2:
         print("CSV faylida test talabiga binoan kamida 2 ta yozuv bo'lishi kerak!")
